@@ -71,10 +71,11 @@ RUN groupadd consul && \
 # config files in that location.
 # In addition, change the group of the /consul directory to 0 since OpenShift
 # will always execute the container with group 0.
+USER 0
 RUN mkdir -p /consul/data && \
     mkdir -p /consul/config && \
     chown -R consul /consul && \
-    chgrp -R 0 /consul && chmod -R g+rwX /consul
+	chgrp -R 0 /consul && chmod -R g+rwX /consul
 
 # set up nsswitch.conf for Go's "netgo" implementation which is used by Consul,
 # otherwise DNS supercedes the container's hosts file, which we don't want.
